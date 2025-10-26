@@ -54,7 +54,7 @@ function isString(value) {
  *   concatenateStrings('', 'bb') => 'bb'
  */
 function concatenateStrings(value1, value2) {
-  return value1.toString() + value2.toString();
+  return value1.concat(value2);
 }
 
 /**
@@ -69,7 +69,7 @@ function concatenateStrings(value1, value2) {
  *   getFirstChar('') => ''
  */
 function getFirstChar(value) {
-  return value?.[0] || '';
+  return value.charAt(0);
 }
 
 /**
@@ -184,7 +184,10 @@ function removeLastOccurrences(str, value) {
  */
 function sumOfCodes(str) {
   let sum = 0;
-  for (let i = 0; i < str.toString.length; i += 1) {
+  if (!str) {
+    return 0;
+  }
+  for (let i = 0; i < str.length; i += 1) {
     sum += str.charCodeAt(i);
   }
   return sum;
@@ -202,7 +205,7 @@ function sumOfCodes(str) {
  *   startsWith('Hello World', 'Hello') => true
  */
 function startsWith(str, substr) {
-  return str.indexOf(substr) === 0;
+  return str.startsWith(substr);
 }
 
 /**
@@ -216,8 +219,8 @@ function startsWith(str, substr) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
 /**
@@ -233,8 +236,12 @@ function endsWith(/* str, substr */) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  const minutesString =
+    minutes < 10 ? minutes.toString().padStart(2, '0') : minutes.toString();
+  const secondsString =
+    seconds < 10 ? seconds.toString().padStart(2, '0') : seconds.toString();
+  return minutesString.concat(':', secondsString);
 }
 
 /**
@@ -247,8 +254,8 @@ function formatTime(/* minutes, seconds */) {
  *   reverseString('abcdef') => 'fedcba'
  *   reverseString('12345') => '54321'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return [...str].reverse().join('');
 }
 
 /**
@@ -262,8 +269,8 @@ function reverseString(/* str */) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  return [...str].sort().join('');
 }
 
 /**
@@ -278,8 +285,8 @@ function orderAlphabetically(/* str */) {
  *   containsSubstring('JavaScript is Fun', 'Python') => false
  *   containsSubstring('12345', '34') => true
  */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  return str.includes(substring);
 }
 
 /**
@@ -296,8 +303,8 @@ function containsSubstring(/* str, substring */) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  return (str.match(/[aeiouy]/gi) || []).length;
 }
 
 /**
@@ -313,8 +320,9 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const newStr = str.toLowerCase().replace(/[^a-z0-9]/gi, '');
+  return newStr === [...newStr].reverse().join('');
 }
 
 /**
@@ -329,8 +337,8 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  return sentence.split(' ').reduce((a, b) => (b.length > a.length ? b : a));
 }
 
 /**
@@ -343,8 +351,11 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  return str
+    .split(' ')
+    .map((x) => [...x].reverse().join(''))
+    .join(' ');
 }
 
 /**
